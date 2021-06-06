@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>{{ post.header }}</h1>
+<br>
+<span>{{ post.text }}</span>
+<hr>
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="text-response"></textarea>
+    <input type="submit" value="Добавить отзыв">
+</form>
+{% endblock content %}

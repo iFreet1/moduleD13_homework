@@ -1,0 +1,32 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h2>Всего откликов: {{ responses | length }}</h2>
+<hr>
+{% if responses %}
+<form method="GET">
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+    <input type="submit" value="Найти">
+</form>
+
+<table>
+    <tr>
+        <td>Объявление</td>
+        <td>Отклик</td>
+    </tr>
+    {% for item in filter.qs %}
+    <tr>
+        <td>
+            <a href="{% url 'post_detail' item.post.id %}">{{ item.post.header }}</a>
+        <td>
+            {{ item.text }}
+            <a href="{% url 'accept' item.id %}"><u>Принять</u></a>
+            <a href="{% url 'delete' item.id %}"><u>Удалить</u></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h1>Откликов нет</h1>
+{% endif %}
+{% endblock content %}
